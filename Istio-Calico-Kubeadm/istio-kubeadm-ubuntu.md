@@ -67,7 +67,7 @@ Congratters, you have a working Kubernetes cluster.
 
 ### 3. Install Istio and Envoy
 
-***The yaml edits done below were because I was using earlier Istio and bookinfo templates that had RBAC errors - these should be fixed now, and you ought to be able to use the yaml templates from the Istio docs as is.***
+***The yaml edits done below were because I was using earlier Istio and bookinfo templates that had RBAC errors - these should be fixed now with the 0.2 release, and you ought to be able to use the yaml templates from the Istio docs as is.***
 
 Follow directions at [Istio - Installation](https://istio.io/docs/tasks/installing-istio.html)  However, use the [istio-rbac-beta.yaml](https://gist.githubusercontent.com/kprabhak/230a40586a0966028e0dbe6fdaf2b877/raw/ca17bd5046caf1df059f18a45ca20ff78ca200e8/istio-rbac-beta.yaml)  and [istio.yaml](https://gist.githubusercontent.com/kprabhak/9ab1f16b79ab5a6b820fe910ae7b0d03/raw/0c4d13601e790625a6ba8d3da5c0427311335012/istio.yaml)  (or istio-auth.yaml) provided here, to work around a couple of errors in how the current docs set up RBAC controls and use ServiceAccounts.
   
