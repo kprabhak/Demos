@@ -1,4 +1,4 @@
-## Gluecon 2017 Demo: Deploying Kubernetes, Calico, Istio and Envoy  
+## Demo: Deploying Kubernetes and Calico (with kubeadm), Istio and Envoy  
 
 ### 1. Create the base OS instances
 
