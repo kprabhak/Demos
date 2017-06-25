@@ -67,9 +67,9 @@ Congratters, you have a working Kubernetes cluster.
 
 ***The yaml edits done below were because I was using earlier Istio and bookinfo templates that had RBAC errors - these should be fixed upstream, so consider the workarounds below as temporary. Added note: looks like the RBAC errors persist with Istio v0.1.6, so you might still need these changed yaml files below***
 
-Follow directions at [Istio - Installation](https://istio.io/docs/tasks/installing-istio.html)  However, use the istio-rbac-beta.yaml and istio.yaml  (or istio-auth.yaml) provided here, to work around a couple of errors in how the current docs set up RBAC controls and use ServiceAccounts.
+Follow directions at [Istio - Installation](https://istio.io/docs/tasks/installing-istio.html)  However, use the [istio-rbac-beta.yaml](https://gist.github.com/kprabhak/230a40586a0966028e0dbe6fdaf2b877)  and [istio.yaml](https://gist.github.com/kprabhak/9ab1f16b79ab5a6b820fe910ae7b0d03)  (or istio-auth.yaml) provided here, to work around a couple of errors in how the current docs set up RBAC controls and use ServiceAccounts.
   
-  Try the [Istio bookinfo demo application](https://istio.io/docs/samples/bookinfo.html)  to see Istio and Envoy in action, and play around with features like request routing rules and service mesh routing. However, use the bookinfo.yaml provided here, to work around the same RBAC error mentioned above.
+  Try the [Istio bookinfo demo application](https://istio.io/docs/samples/bookinfo.html)  to see Istio and Envoy in action, and play around with features like request routing rules and service mesh routing. However, use the [bookinfo.yaml](https://gist.github.com/kprabhak/f4eb322a1c716d6422159b4fa0b7b0f9)  provided here, to work around the same RBAC error mentioned above.
   
   
   
