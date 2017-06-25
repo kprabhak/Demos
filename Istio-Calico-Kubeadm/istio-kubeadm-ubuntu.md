@@ -7,7 +7,7 @@ This demo was done with Ubuntu 16.04.2, Kubernetes 1.6.4, Calico 2.2, Istio 0.1.
 Launch a few Ubuntu instances on your favorite public or private cloud. Depending on the cloud used (for e.g., AWS), you might need to set source-dest-check to off for the instances. For this demo, we used 4 large instances, 1 for the kube-master and the rest workers. Please ensure that the basic system configuration is functional (for e.g, DNS name resolution or /etc/hosts for cluster nodes, ssh, etc.)
 
 
-### 2. Install Kubernetes with Calico
+### 2. Install Prerequisite Packages on Base OS Instances
 
 
 On each node:
