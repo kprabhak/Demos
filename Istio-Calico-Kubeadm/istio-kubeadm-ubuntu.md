@@ -1,8 +1,8 @@
-## Demo: Deploying Kubernetes and Calico (with kubeadm), Istio and Envoy  
+## Demo: Deploying Kubernetes, Calico, Istio and Envoy  
 
 ### 1. Create the base OS instances
 
-This demo was done with Ubuntu 16.04.2, Kubernetes 1.6.4, Calico 2.2, Istio 0.1.3 and Envoy. We plan to also verify with CoreOS ContainerLinux and CentOS/RHEL
+This demo was done with Ubuntu 16.04.2, Kubernetes 1.6.4, Calico 2.2, Istio 0.1.6 and Envoy. We plan to also verify with CoreOS ContainerLinux and CentOS/RHEL
 
 Launch a few Ubuntu instances on your favorite public or private cloud. Depending on the cloud used (for e.g., AWS), you might need to set source-dest-check to off for the instances. For this demo, we used 4 large instances, 1 for the kube-master and the rest workers. Please ensure that the basic system configuration is functional (for e.g, DNS name resolution or /etc/hosts for cluster nodes, ssh, etc.)
 
@@ -24,10 +24,6 @@ On each node:
 	apt-get install -y kubelet kubeadm kubectl kubernetes-cni
 	
 
-
-
-
-
 On master:
 	
 	kubeadm init
@@ -40,6 +36,8 @@ Download the [Calico manifest](http://docs.projectcalico.org/v2.2/getting-starte
 For e.g.,
      Change CALICO_IPV4POOL_CIDR to your preferred range (for e.g., 10.5.0.0/16)
      Change CALICO_IPV4POOL_IPIP from always to cross-subnet (if you'd prefer to use unencapsulated networking in deployments like AWS or private clouds where there is L2 reachability within subnets)
+ 
+### 3. Deploy Kubernetes and Calico with Kubeadm
  
  Deploy Calico on master:
 	 
@@ -65,22 +63,23 @@ Congratters, you have a working Kubernetes cluster.
 
 
 
-### 3. Install Istio and Envoy
+### 4. Install Istio and Envoy
 
-***The yaml edits done below were because I was using earlier Istio and bookinfo templates that had RBAC errors - these should be fixed now with the 0.2 release, and you ought to be able to use the yaml templates from the Istio docs as is.***
+***The yaml edits done below were because I was using earlier Istio and bookinfo templates that had RBAC errors - these should be fixed upstream, so consider the workarounds below as temporary. Added note: looks like the RBAC errors persist with Istio v0.1.6, so you might still need these changed yaml files below***
 
-Follow directions at [Istio - Installation](https://istio.io/docs/tasks/installing-istio.html)  However, use the [istio-rbac-beta.yaml](https://gist.githubusercontent.com/kprabhak/230a40586a0966028e0dbe6fdaf2b877/raw/ca17bd5046caf1df059f18a45ca20ff78ca200e8/istio-rbac-beta.yaml)  and [istio.yaml](https://gist.githubusercontent.com/kprabhak/9ab1f16b79ab5a6b820fe910ae7b0d03/raw/0c4d13601e790625a6ba8d3da5c0427311335012/istio.yaml)  (or istio-auth.yaml) provided here, to work around a couple of errors in how the current docs set up RBAC controls and use ServiceAccounts.
+Follow directions at [Istio - Installation](https://istio.io/docs/tasks/installing-istio.html)  However, use the istio-rbac-beta.yaml and istio.yaml  (or istio-auth.yaml) provided here, to work around a couple of errors in how the current docs set up RBAC controls and use ServiceAccounts.
   
-  Try the [Istio bookinfo demo application](https://istio.io/docs/samples/bookinfo.html)  to see Istio and Envoy in action, and play around with features like request routing rules and service mesh routing. However, use the [bookinfo.yaml](https://gist.githubusercontent.com/kprabhak/50ba8af63f6e0ed5c394106796c7aa1b/raw/50221c4e58b2206a4ed8c95263d721dcafb4198f/bookinfo.yaml)  provided here, to work around the same RBAC error mentioned above.
+  Try the [Istio bookinfo demo application](https://istio.io/docs/samples/bookinfo.html)  to see Istio and Envoy in action, and play around with features like request routing rules and service mesh routing. However, use the bookinfo.yaml provided here, to work around the same RBAC error mentioned above.
   
   
   
-### 4. Advanced Network Policy with Calico and Istio
+### 5. Advanced Network Policy with Calico and Istio
 
 There are a number of interesting ways to combine Service mesh rules and L5-7 policy with Calico and Kubernetes Network Policy. Here are a few examples:
 
 - DefaultDeny within namespace and restricted pinhole openings for microservices: [example](https://www.projectcalico.org/network-policy-and-istio-deep-dive/)  by Saurabh Mohan (Tigera)
 - Example restricting access to microservice application to specific host instances/
+
 
 
 
