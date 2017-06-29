@@ -2,10 +2,9 @@
 
 ### 1. Create the base OS instances
 
-This demo was done with Ubuntu 16.04.2, Kubernetes 1.6.4, Calico 2.2, Istio 0.1.6 and Envoy. We plan to also verify with CoreOS ContainerLinux and CentOS/RHEL
+This demo was done with Ubuntu 16.04.2, Kubernetes 1.6.4, Calico 2.2, Istio 0.1.6 and Envoy. We've also tested this on CentOS/RHEL, and also plan to test with ContainerLinux.
 
-Launch a few Ubuntu instances on your favorite public or private cloud. Depending on the cloud used (for e.g., AWS), you might need to set source-dest-check to off for the instances. For this demo, we used 4 large instances, 1 for the kube-master and the rest workers. Please ensure that the basic system configuration is functional (for e.g, DNS name resolution or /etc/hosts for cluster nodes, ssh, etc.)
-
+Launch a few Ubuntu instances on your favorite public or private cloud. Depending on the cloud used (for e.g., AWS), you might need to set source-dest-check to off for the instances. For this demo, we used 4 large instances, 1 for the kube-master and the rest workers. Please ensure that the basic system configuration is functional (for e.g, DNS name resolution or /etc/hosts for cluster nodes, ssh, etc.) - Istio and Envoy are pretty lightweight and should be find in a single small node, but the bookinfo sample app used for the demo is a bit more bulky and might need a couple of large instances. 
 
 ### 2. Install Prerequisite Packages on Base OS Instances
 
@@ -23,6 +22,7 @@ On each node:
  	apt-get install -y docker-engine
 	apt-get install -y kubelet kubeadm kubectl kubernetes-cni
 	
+### 3. Deploy Kubernetes and Calico with Kubeadm
 
 On master:
 	
@@ -37,7 +37,7 @@ For e.g.,
      Change CALICO_IPV4POOL_CIDR to your preferred range (for e.g., 10.5.0.0/16)
      Change CALICO_IPV4POOL_IPIP from always to cross-subnet (if you'd prefer to use unencapsulated networking in deployments like AWS or private clouds where there is L2 reachability within subnets)
  
-### 3. Deploy Kubernetes and Calico with Kubeadm
+
  
  Deploy Calico on master:
 	 
@@ -67,9 +67,9 @@ Congratters, you have a working Kubernetes cluster.
 
 ***The yaml edits done below were because I was using earlier Istio and bookinfo templates that had RBAC errors - these should be fixed upstream, so consider the workarounds below as temporary. Added note: looks like the RBAC errors persist with Istio v0.1.6, so you might still need these changed yaml files below***
 
-Follow directions at [Istio - Installation](https://istio.io/docs/tasks/installing-istio.html)  However, use the [istio-rbac-beta.yaml](https://gist.github.com/kprabhak/230a40586a0966028e0dbe6fdaf2b877)  and [istio.yaml](https://gist.github.com/kprabhak/9ab1f16b79ab5a6b820fe910ae7b0d03)  (or istio-auth.yaml) provided here, to work around a couple of errors in how the current docs set up RBAC controls and use ServiceAccounts.
+Follow directions at [Istio - Installation](https://istio.io/docs/tasks/installing-istio.html)  However, use the [istio-rbac-beta.yaml](https://gist.githubusercontent.com/kprabhak/9fce025780c2e80d05c08ca493a2ac7a/raw/8e678646347dff87c2bb2de12340624508b58d18/istio-rbac-beta.yaml)   and [istio.yaml](https://gist.githubusercontent.com/kprabhak/9fce025780c2e80d05c08ca493a2ac7a/raw/8e678646347dff87c2bb2de12340624508b58d18/istio.yaml)   (or istio-auth.yaml) provided here, to work around a couple of errors in how the current docs set up RBAC controls and use ServiceAccounts.
   
-  Try the [Istio bookinfo demo application](https://istio.io/docs/samples/bookinfo.html)  to see Istio and Envoy in action, and play around with features like request routing rules and service mesh routing. However, use the [bookinfo.yaml](https://gist.github.com/kprabhak/f4eb322a1c716d6422159b4fa0b7b0f9)  provided here, to work around the same RBAC error mentioned above.
+  Try the [Istio bookinfo demo application](https://istio.io/docs/samples/bookinfo.html)  to see Istio and Envoy in action, and play around with features like request routing rules and service mesh routing. However, use the [bookinfo.yaml](https://gist.githubusercontent.com/kprabhak/9fce025780c2e80d05c08ca493a2ac7a/raw/8e678646347dff87c2bb2de12340624508b58d18/bookinfo.yaml)  provided here, to work around the same RBAC error mentioned above.
   
   
   
